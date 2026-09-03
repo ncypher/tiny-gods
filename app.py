@@ -72,7 +72,7 @@ st.markdown(
     """
     <div class="tg-kicker">EMERGENT SYSTEMS LAB / TERRARIUM 01</div>
     <div class="tg-title">Tiny Gods</div>
-    <div class="tg-sub">A living browser terrarium of autonomous little beings. Change the rules, start a world, and watch settlement, scarcity, cooperation, conflict, memory, culture, migration and diplomacy emerge from simple local behavior.</div>
+    <div class="tg-sub">A living browser terrarium of autonomous little beings. Change the rules, start a world, and watch settlement, scarcity, cooperation, conflict, memory, culture, migration, diplomacy, trade and history emerge from simple local behavior.</div>
     <div style="margin-top:10px"><span class="tg-pill">CLICK AGENTS OR CAMPS</span><span class="tg-pill">DRAG TO PAN</span><span class="tg-pill">WHEEL TO ZOOM</span><span class="tg-pill">SPACE = PAUSE</span></div>
     """,
     unsafe_allow_html=True,
@@ -81,7 +81,8 @@ st.markdown(
 html = (ROOT / "terrarium.html").read_text(encoding="utf-8")
 html = html.replace("__TINY_GODS_CONFIG__", json.dumps(config))
 culture_patch = (ROOT / "culture_v03.js").read_text(encoding="utf-8")
-html = html.replace("</script></body></html>", "\n" + culture_patch + "\n</script></body></html>")
+spectacle_patch = (ROOT / "spectacle_v04.js").read_text(encoding="utf-8")
+html = html.replace("</script></body></html>", "\n" + culture_patch + "\n" + spectacle_patch + "\n</script></body></html>")
 components.html(html, height=880, scrolling=False)
 
 with st.expander("What is actually happening under the glass?"):
@@ -89,7 +90,9 @@ with st.expander("What is actually happening under the glass?"):
         """
         Every inhabitant has energy, age, curiosity, sociability, aggression, memory and a small relationship network. They wander toward food and neighbors; cooperate or fight according to local conditions; carry resources back toward camps; form families; and occasionally transmit innovations. Dense cooperation can nucleate settlements, while successful settlements can later split into culturally related daughter communities.
 
-        Camps develop inherited customs, sigils and diplomatic relationships. Related or compatible settlements can form pacts and exchange resources; scarcity, distance and cultural divergence can instead drive feuds. The model is deliberately a **toy agent-based system**, not a scientific forecast. Its useful purpose is to make emergence legible: identical rules can create very different histories from different seeds, while identical seeds reproduce the same initial world.
+        Camps develop inherited customs, sigils and diplomatic relationships. Related or compatible settlements can form pacts and exchange resources; scarcity, distance and cultural divergence can instead drive feuds. Roads strengthen through repeated trade, settlement architecture grows with population, cultural influence becomes visible on the landscape, moving weather systems cross the world, and major events persist in a world-history strip.
+
+        The model is deliberately a **toy agent-based system**, not a scientific forecast. Its useful purpose is to make emergence legible: identical rules can create very different histories from different seeds, while identical seeds reproduce the same initial world.
         """
     )
 
