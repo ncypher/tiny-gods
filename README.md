@@ -38,9 +38,15 @@ Point Community Cloud at `app.py`. No secrets, API keys, databases, Node build o
 
 Built for curiosity. Break the rules and see what survives.
 
+## v0.4 — Spectacle & Memory
+
+Civilization now becomes physically legible. Settlements grow clustered buildings and cultural banners as their populations rise. Trade relationships gradually strengthen into visible roads, while culture projects soft influence fields across the terrain.
+
+Weather systems drift across the world as moving cloud and rain fields rather than isolated alerts. A persistent world-history strip preserves major births, founding events, migrations, treaties, feuds and trade milestones so the most important moments no longer disappear from the Chronicle.
+
 ## v0.3 — Culture & Kin
 
-Settlements now develop inherited customs and sigils, successful camps can split into culturally related daughter settlements, and neighboring communities develop diplomacy that can drift toward pacts or feuds. Culture gently shapes member behavior over time rather than replacing individual traits.
+Settlements develop inherited customs and sigils, successful camps can split into culturally related daughter settlements, and neighboring communities develop diplomacy that can drift toward pacts or feuds. Culture gently shapes member behavior over time rather than replacing individual traits.
 
 Pact-linked settlements can exchange resources with visible trade caravans. Migration splits are also represented as moving founding journeys. Clicking a settlement opens a civilization card showing its founding day, parent settlement, cultural tendencies, population, stores, diplomatic ties and local historical record.
 
