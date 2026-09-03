@@ -52,7 +52,7 @@ function tgDiplomacy(dt){
 function tgTrade(dt){
   let active=world.settlements.filter(s=>!s.abandoned&&s.pop>0&&s.culture);
   for(const a of active){
-    if(a.store<.65)return;
+    if(a.store<.65)continue;
     let partners=active.filter(b=>b!==a&&tgRel(a,b)>.58&&b.store<a.store-.18&&Math.hypot(a.x-b.x,a.y-b.y)<650);
     if(!partners.length)continue;
     let b=partners[Math.floor(R()*partners.length)];
