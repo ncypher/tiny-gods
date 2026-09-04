@@ -8,7 +8,7 @@ import streamlit.components.v1 as components
 ROOT = Path(__file__).parent
 
 st.set_page_config(page_title="Tiny Gods — Agent Terrarium",page_icon="🌱",layout="wide",initial_sidebar_state="expanded")
-st.markdown("""<style>.stApp{background:radial-gradient(circle at 50% -20%,#17243a 0%,#080c13 44%,#05070b 100%)}[data-testid="stSidebar"]{background:linear-gradient(180deg,#0b1019 0%,#090d14 100%);border-right:1px solid rgba(255,255,255,.08)}[data-testid="stSidebar"] *{color:#dce8e3}.block-container{padding-top:1.1rem;max-width:1600px}h1,h2,h3{letter-spacing:-.03em}.tg-kicker{color:#7cf8c7;font:700 12px/1.2 ui-monospace,monospace;letter-spacing:.16em;text-transform:uppercase}.tg-title{font:800 clamp(34px,5vw,68px)/.95 ui-sans-serif,system-ui;color:#f5fff9;margin:.18rem 0 .35rem}.tg-sub{color:#9eb0aa;max-width:850px;font-size:15px}.tg-pill{display:inline-block;padding:5px 9px;border:1px solid rgba(124,248,199,.22);border-radius:999px;color:#b9f9df;background:rgba(124,248,199,.06);font:600 11px ui-monospace,monospace;margin-right:5px}footer{visibility:hidden}</style>""",unsafe_allow_html=True)
+st.markdown("""<style>.stApp{background:radial-gradient(circle at 50% -20%,#17243a 0%,#080c13 44%,#05070b 100%)}[data-testid="stSidebar"]{background:linear-gradient(180deg,#0b1019 0%,#090d14 100%);border-right:1px solid rgba(255,255,255,.08)}[data-testid="stSidebar"] *{color:#dce8e3}.block-container{padding-top:1.1rem;max-width:1600px}h1,h2,h3{letter-spacing:-.03em}.tg-kicker{color:#7cf8c7;font:700 12px/1.2 ui-monospace,monospace;letter-spacing:.16em;text-transform:uppercase}.tg-title{font:800 clamp(34px,5vw,68px)/.95 ui-sans-serif,system-ui;color:#f5fff9;margin:.18rem 0 .35rem}.tg-sub{color:#9eb0aa;max-width:900px;font-size:15px}.tg-pill{display:inline-block;padding:5px 9px;border:1px solid rgba(124,248,199,.22);border-radius:999px;color:#b9f9df;background:rgba(124,248,199,.06);font:600 11px ui-monospace,monospace;margin-right:5px}footer{visibility:hidden}</style>""",unsafe_allow_html=True)
 with st.sidebar:
     st.markdown("### ⚙️ Genesis Console")
     if "seed" not in st.session_state: st.session_state.seed=73481
@@ -19,18 +19,20 @@ with st.sidebar:
     st.divider();population=st.slider("Founding population",12,90,38);cooperation=st.slider("Cooperation",0,100,68);aggression=st.slider("Aggression",0,100,22);scarcity=st.slider("Scarcity",0,100,34);innovation=st.slider("Innovation",0,100,61);climate=st.slider("Climate stability",0,100,72);speed=st.select_slider("Time flow",options=[0.5,1.0,2.0,4.0],value=1.0,format_func=lambda x:f"{x:g}×")
     st.divider();st.caption("The simulation is deterministic for a given seed + rule set. Share a world by sharing those values.")
 config={"seed":int(seed),"population":population,"cooperation":cooperation/100,"aggression":aggression/100,"scarcity":scarcity/100,"innovation":innovation/100,"climate":climate/100,"speed":speed}
-st.markdown("""<div class="tg-kicker">EMERGENT SYSTEMS LAB / TERRARIUM 01</div><div class="tg-title">Tiny Gods</div><div class="tg-sub">A living browser terrarium where agents become families, camps become cultures, legends become houses, and history begins to shape the descendants who inherit it.</div><div style="margin-top:10px"><span class="tg-pill">CLICK AGENTS OR CAMPS</span><span class="tg-pill">DRAG TO PAN</span><span class="tg-pill">WHEEL TO ZOOM</span><span class="tg-pill">SPACE = PAUSE</span></div>""",unsafe_allow_html=True)
+st.markdown("""<div class="tg-kicker">EMERGENT SYSTEMS LAB / TERRARIUM 01</div><div class="tg-title">Tiny Gods</div><div class="tg-sub">A living browser terrarium where agents become families, camps become cultures, legends become houses — and settlements now gather for rituals, markets, funerals, disputes and seasonal events that become part of local history.</div><div style="margin-top:10px"><span class="tg-pill">DOUBLE-CLICK CAMP = ENTER</span><span class="tg-pill">ESC = RETURN</span><span class="tg-pill">DRAG TO PAN</span><span class="tg-pill">WHEEL TO ZOOM</span><span class="tg-pill">SPACE = PAUSE</span></div>""",unsafe_allow_html=True)
 html=(ROOT/"terrarium.html").read_text(encoding="utf-8").replace("__TINY_GODS_CONFIG__",json.dumps(config))
-patches=["culture_v03.js","spectacle_v04.js","ages_v05.js","legends_v05.js","dynasties_v06.js"]
+patches=["culture_v03.js","spectacle_v04.js","ages_v05.js","legends_v05.js","dynasties_v06.js","under_glass_v07.js","identity_v07.js","archaeology_v07.js","construction_v07.js","daily_life_v07.js","role_effects_v07.js","house_life_v07.js","rituals_v07.js"]
 patch="\n".join((ROOT/p).read_text(encoding="utf-8") for p in patches)
 html=html.replace("</script></body></html>","\n"+patch+"\n</script></body></html>")
 components.html(html,height=880,scrolling=False)
 with st.expander("What is actually happening under the glass?"):
     st.markdown("""Tiny Gods is a toy agent-based system. Individuals gather resources, form relationships and families, learn, fight, cooperate and establish camps. Settlements inherit culture, split into daughter communities, trade, form pacts and feuds, build roads, project influence and accumulate local history.
 
-Ages & Legends lets complex worlds move through broad developmental eras and preserves unusually consequential lives. **Dynasties & Echoes** adds a weak inherited historical effect: descendants of legends can form named houses, carry a small prestige signal, appear in settlement lineage records, and very gently influence the social character of places where a famous bloodline persists.
+Ages & Legends preserves unusually consequential lives. Dynasties & Echoes lets some of that history persist weakly through descendants. A lineage bug that could permanently skip descendants before an ancestor became legendary has been fixed, so living houses can now emerge later in a run as intended.
 
-The effect is intentionally small. Tiny Gods is more interesting when ancestry creates pressure rather than destiny.
+**Under the Glass** adds a second camera mode: double-click an active settlement and the world is re-rendered as an intimate 2.5D scene derived from that settlement's live population, culture, houses, monument, founder, stores and current world time. Residents occupy small roles that feed gently back into construction, trade, knowledge and diplomacy.
 
-It is deliberately not a scientific forecast; its purpose is to make emergence visible and fun to explore.""")
+Settlements can now also enter brief local events—market days, communal feasts, monument dedications, funerals, public disputes and seasonal gatherings. These pull people visually toward civic space and are written into settlement history.
+
+Tiny Gods is deliberately not a scientific forecast; its purpose is to make emergence visible and fun to explore.""")
 st.caption("Built as a self-contained Streamlit showcase. No accounts, API keys, external assets or tracking required.")
