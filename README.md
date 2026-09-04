@@ -15,8 +15,8 @@ streamlit run app.py
 
 ## Controls
 
-- **Click an agent** — inspect its traits, home, thought and latest memory
-- **Click a settlement** — inspect its culture, ancestry, diplomacy, stores and history
+- **Click an agent** — inspect traits, home, thought, memory and lineage
+- **Click a settlement** — inspect culture, ancestry, diplomacy, stores, houses and history
 - **Drag** — pan across the terrarium
 - **Mouse wheel** — zoom
 - **Space** — pause / resume
@@ -24,7 +24,7 @@ streamlit run app.py
 
 ## Why Streamlit + Canvas?
 
-Streamlit owns the host UI and rule controls. The terrarium is an embedded HTML5 Canvas simulation, which keeps the deployment trivial while allowing a much richer animated world than ordinary dashboard elements.
+Streamlit owns the host UI and rule controls. The terrarium is an embedded HTML5 Canvas simulation, which keeps deployment trivial while allowing a much richer animated world than ordinary dashboard elements.
 
 ## Model note
 
@@ -38,9 +38,21 @@ Point Community Cloud at `app.py`. No secrets, API keys, databases, Node build o
 
 Built for curiosity. Break the rules and see what survives.
 
+## v0.6 — Dynasties & Echoes
+
+Legendary lives can now leave descendants with a faint inherited social prestige. Descendants organize into named houses derived from the remembered ancestor and epithet, settlements can display which houses are present, and individual inspection exposes lineage and prestige.
+
+The effect is deliberately weak: ancestry creates pressure, not destiny. A famous bloodline may gently influence a settlement's social character, but ordinary agents and local conditions still dominate the simulation.
+
+## v0.5 — Ages & Legends
+
+The world can move through broad emergent ages — Wandering, Hearth, Clan, Road and City — based on what settlements and trade networks actually accomplish. Prosperous communities can raise monuments, while unusually consequential people can be remembered after death with earned epithets such as Founder, Far-Walker, Keeper of Sparks, Many-Rooted, Open Hand or Long-Lived.
+
+The Hall of Memory preserves recent legendary figures and settlements remember founders and notable dead.
+
 ## v0.4 — Spectacle & Memory
 
-Civilization now becomes physically legible. Settlements grow clustered buildings and cultural banners as their populations rise. Trade relationships gradually strengthen into visible roads, while culture projects soft influence fields across the terrain.
+Civilization becomes physically legible. Settlements grow clustered buildings and cultural banners as populations rise. Trade relationships gradually strengthen into visible roads, while culture projects soft influence fields across the terrain.
 
 Weather systems drift across the world as moving cloud and rain fields rather than isolated alerts. A persistent world-history strip preserves major births, founding events, migrations, treaties, feuds and trade milestones so the most important moments no longer disappear from the Chronicle.
 
