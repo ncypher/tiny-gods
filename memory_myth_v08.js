@@ -23,7 +23,7 @@ function tgV8Remember(s,kind,source,weight=.5){
 
 function tgV8Text(m){
   let s=m.settlement,src=m.source||{};
-  if(m.kind==='founder')return `${s.n} ${m.tone} that ${src.name||'the first founder'} chose this place when the roads were still young.`;
+  if(m.kind==='founder')return `${s.n} ${m.tone} that ${src.n||src.name||'the first founder'} chose this place when the roads were still young.`;
   if(m.kind==='split')return `${s.n} ${m.tone} the Leaving, when kin carried fire away to make another home.`;
   if(m.kind==='feud')return `${s.n} ${m.tone} of the Bitter Boundary and the customs that divided neighbors.`;
   if(m.kind==='pact')return `${s.n} ${m.tone} the Joined Hands, when two camps chose road over feud.`;

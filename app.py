@@ -1,25 +1,55 @@
-import json
+"""Streamlit host. Genesis is committed explicitly; live controls stay in the world."""
 import random
-from pathlib import Path
+
 import streamlit as st
 import streamlit.components.v1 as components
-ROOT=Path(__file__).parent
-st.set_page_config(page_title="Tiny Gods — Agent Terrarium",page_icon="🌱",layout="wide",initial_sidebar_state="expanded")
-st.markdown("""<style>.stApp{background:radial-gradient(circle at 50% -20%,#17243a 0%,#080c13 44%,#05070b 100%)}[data-testid="stSidebar"]{background:linear-gradient(180deg,#0b1019 0%,#090d14 100%);border-right:1px solid rgba(255,255,255,.08)}[data-testid="stSidebar"] *{color:#dce8e3}.block-container{padding-top:1.1rem;max-width:1600px}.tg-kicker{color:#7cf8c7;font:700 12px ui-monospace;letter-spacing:.16em}.tg-title{font:800 clamp(34px,5vw,68px)/.95 ui-sans-serif;color:#f5fff9;margin:.18rem 0 .35rem}.tg-sub{color:#9eb0aa;max-width:940px}.tg-pill{display:inline-block;padding:5px 9px;border:1px solid rgba(124,248,199,.22);border-radius:999px;color:#b9f9df;background:rgba(124,248,199,.06);font:600 11px ui-monospace;margin-right:5px}footer{visibility:hidden}</style>""",unsafe_allow_html=True)
-with st.sidebar:
- st.markdown("### ⚙️ Genesis Console")
- if "seed" not in st.session_state:st.session_state.seed=73481
- seed=st.number_input("World seed",1,99999999,int(st.session_state.seed),1);a,b=st.columns(2)
- if a.button("🎲 Randomize",use_container_width=True):st.session_state.seed=random.randint(1,99_999_999);st.rerun()
- if b.button("↻ Rebirth",use_container_width=True):st.session_state.seed=int(seed);st.rerun()
- st.divider();population=st.slider("Founding population",12,90,38);cooperation=st.slider("Cooperation",0,100,68);aggression=st.slider("Aggression",0,100,22);scarcity=st.slider("Scarcity",0,100,34);innovation=st.slider("Innovation",0,100,61);climate=st.slider("Climate stability",0,100,72);speed=st.select_slider("Time flow",[0.5,1.0,2.0,4.0],1.0,format_func=lambda x:f"{x:g}×")
-config={"seed":int(seed),"population":population,"cooperation":cooperation/100,"aggression":aggression/100,"scarcity":scarcity/100,"innovation":innovation/100,"climate":climate/100,"speed":speed}
-st.markdown("""<div class="tg-kicker">EMERGENT SYSTEMS LAB / TERRARIUM 01</div><div class="tg-title">Tiny Gods</div><div class="tg-sub">A living civilization terrarium where wanderers become families, families become settlements, settlements become cultures, history becomes myth, and exceptional lives become gods. Descend into villages, inspect the people and built world, then climb back out to watch regions, roads, dynasties, landmarks and beliefs evolve across the long count.</div><div style="margin-top:10px"><span class="tg-pill">CLICK VILLAGE → ENTER</span><span class="tg-pill">MYTHIC FIGURES = REAL AGENTS</span><span class="tg-pill">PEOPLE · BUILDINGS · STORIES · RITUALS · TRADE</span><span class="tg-pill">ESC = RETURN</span></div>""",unsafe_allow_html=True)
-html=(ROOT/"terrarium.html").read_text(encoding="utf-8").replace("__TINY_GODS_CONFIG__",json.dumps(config))
-patches=["culture_v03.js","spectacle_v04.js","ages_v05.js","legends_v05.js","dynasties_v06.js","card_compat_v08.js","under_glass_v07.js","under_glass_entry_fix_v08.js","identity_v07.js","archaeology_v07.js","construction_v07.js","daily_life_v07.js","role_effects_v07.js","house_life_v07.js","rituals_v07.js","memory_myth_v08.js","myth_transmission_v08.js","pantheon_v09.js","atmosphere_v09.js","overdrive_v09.js","cinematic_v09.js","finale_v09.js"]
-patch="\n".join((ROOT/p).read_text(encoding="utf-8") for p in patches);html=html.replace("</script></body></html>","\n"+patch+"\n</script></body></html>");components.html(html,height=880,scrolling=False)
-with st.expander("What is actually happening under the glass?"):
- st.markdown("""Tiny Gods remains one live toy agent simulation underneath the spectacle. Individuals gather, socialize, teach, fight, form families and found camps. Settlements inherit customs, split, trade, ally, feud, build roads and accumulate history. Legends can seed dynasties; factual events can become myths; myths travel and drift; exceptional living agents are rendered as a pantheon; and Under the Glass reinterprets the same live state as a close 2.5D village.
 
-The final showcase layer adds settlement specializations such as sanctuaries, crossroads, strongholds, archives and granaries; landmark buildings; visible kin-regions; a long-count history HUD; stronger divine silhouettes; and deeper visual continuity between God View and village life. Tiny Gods is deliberately not a scientific model—it is an emergent storytelling toy.""")
-st.caption("Tiny Gods v0.9 · self-contained Streamlit showcase · procedural Canvas visuals · no external assets, accounts, API keys or tracking required.")
+from terrarium import build_html
+
+st.set_page_config(page_title="Tiny Gods · The living atlas", page_icon="🌿", layout="wide", initial_sidebar_state="collapsed")
+st.markdown("""<style>
+.stApp{background:#0d181c;color:#e6e7da}
+[data-testid="stSidebar"]{background:#122126}
+.block-container{padding-top:3.5rem;padding-bottom:0;max-width:1800px}
+.tg-heading{display:flex;align-items:baseline;gap:20px;margin-bottom:12px;border-bottom:1px solid #ffffff18;padding-bottom:14px}
+.tg-heading h1{font:normal 38px Georgia,serif;color:#f0e8d1;margin:0;padding:0}
+.tg-heading p{font:13px/1.5 system-ui;color:#9dafad;margin:0}
+@media(max-width:650px){.tg-heading{display:block}.tg-heading h1{font-size:30px}.block-container{padding-left:12px;padding-right:12px}}
+</style>""", unsafe_allow_html=True)
+
+if "genesis" not in st.session_state:
+    st.session_state.genesis = dict(seed=73481, population=38, cooperation=.68, aggression=.22, scarcity=.34, innovation=.61, climate=.72, speed=1.0, incarnation=0)
+
+with st.sidebar:
+    st.title("Shape a beginning")
+    st.caption("These are starting conditions, not commands. People will make their own history.")
+    current = st.session_state.genesis
+    with st.form("genesis_form"):
+        seed = st.number_input("World seed", 1, 99_999_999, current["seed"])
+        population = st.slider("Founding population", 12, 90, current["population"])
+        weights = {}
+        for key, label, help_text in [
+            ("cooperation", "Cooperation", "More inclination to form friendships, share, and build families."),
+            ("aggression", "Aggression", "Greater likelihood of conflict between neighbors."),
+            ("scarcity", "Scarcity", "Less replenishment and more pressure to find food."),
+            ("innovation", "Curiosity", "More exploration and opportunities to learn."),
+            ("climate", "Climate stability", "Fewer disruptive weather events."),
+        ]:
+            weights[key] = st.slider(label, 0, 100, round(current[key] * 100), help=help_text) / 100
+        st.caption("Beginning again replaces the current world. Download its chronicle first if you want to keep its story.")
+        begin = st.form_submit_button("Begin this world", use_container_width=True, type="primary")
+        surprise = st.form_submit_button("Begin with a surprise seed", use_container_width=True)
+    if begin or surprise:
+        st.session_state.genesis = dict(seed=random.randint(1, 99_999_999) if surprise else int(seed), population=population, **weights, speed=1.0, incarnation=current["incarnation"] + 1)
+    st.caption("Pause, pace, zoom, and reading controls are inside the atlas. Editing this form does not interrupt the running world.")
+
+st.markdown('<div class="tg-heading"><h1>Tiny Gods</h1><p>THE LIVING ATLAS &nbsp; / &nbsp; First they survive. Then they remember. Eventually, they believe.</p></div>', unsafe_allow_html=True)
+components.html(build_html(st.session_state.genesis), height=880, scrolling=False)
+with st.expander("A small guide to a long history"):
+    st.markdown("""Start by following a person. Food, friendship, and curiosity shape their days; shared lives can become villages. Enter a village to watch the same residents up close.
+
+The **Chronicle** records events as they occur. **People** lets you follow a living individual; **Villages** takes you to a settlement. **Beliefs** separates cultural stories from their recorded sources. No particular ending is promised.
+
+Use **Pause** to read, change the pace without restarting, or hide the reading panel for a quiet view. Open the sidebar to shape a new beginning. Space pauses the world; Escape returns from a village. Download the chronicle before beginning again—it is a story record, not a saved game.
+
+This is a procedural storytelling toy, not a scientific civilization model. Everything runs locally in your browser; no API keys or external artwork are needed.""")

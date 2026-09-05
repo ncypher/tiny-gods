@@ -1,0 +1,57 @@
+:root{--ink:#e9e2cf;--muted:#a4b6b3;--gold:#dcc58e;--line:#d8e6d519;--paper:#14252a}
+body{font-family:system-ui,sans-serif;color:var(--ink)}
+#wrap{height:850px;border-radius:16px;background:#10252d;border:1px solid #ffffff18;box-shadow:0 18px 60px #0004}
+#c{top:66px;left:0;width:calc(100% - 310px);height:calc(100% - 66px);touch-action:none}
+.topbar,.hint,.eventlog,.vignette,#historyStrip,#legendHall,#dynastyLedger,#eraBanner,#tg-pantheon,#underGlassHint,#tg-enter-dock{display:none!important}
+#atlas-bar{position:absolute;inset:0 0 auto;height:66px;display:flex;align-items:center;gap:8px;padding:10px 16px;border-bottom:1px solid var(--line);background:#14252a;z-index:110}
+#atlas-bar .identity{margin-right:auto;min-width:130px}
+#atlas-bar .identity b{display:block;font:17px Georgia,serif;color:var(--ink)}
+#atlas-bar small{color:var(--muted);font-size:10px;letter-spacing:.08em}
+#wrap button,#wrap select{font:12px system-ui;color:var(--ink);border:1px solid #ffffff24;background:#21373c;border-radius:7px;padding:8px 11px;cursor:pointer}
+#wrap button:hover,#wrap select:hover{background:#36504e;border-color:#d9c79580}
+#wrap button:focus-visible,#wrap select:focus-visible,#atlas-content:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+#wrap button[aria-pressed=true]{background:#d9c795;color:#172a2d;border-color:#d9c795}
+#atlas-reader{position:absolute;right:0;top:66px;bottom:0;width:310px;background:linear-gradient(160deg,#1c3034,#101f24);border-left:1px solid var(--line);display:flex;flex-direction:column;z-index:100}
+#atlas-summary{padding:22px 20px 18px;border-bottom:1px solid var(--line)}
+.eyebrow{font:10px system-ui;text-transform:uppercase;letter-spacing:.16em;color:var(--gold)}
+#atlas-summary h2{font:26px/1.1 Georgia,serif;font-weight:normal;margin:9px 0 12px}
+#atlas-summary p{font-size:12px;line-height:1.6;color:#bbcac4;margin:0}
+.census{display:flex;gap:22px;margin-top:18px}.census strong{display:block;font:23px Georgia,serif}.census small{font-size:10px;color:var(--muted)}
+#atlas-tabs{display:flex;gap:2px;padding:12px 10px 0}
+#atlas-tabs button{padding:8px 6px;flex:1;font-size:11px;background:transparent;border-color:transparent}
+#atlas-tabs button[aria-selected=true]{color:var(--gold);border-bottom-color:var(--gold);border-radius:0}
+#atlas-content{overflow:auto;padding:16px 20px;flex:1;scrollbar-width:thin;scrollbar-color:#526963 transparent}
+.atlas-entry{padding:0 0 15px;margin-bottom:16px;border-bottom:1px solid var(--line);font-size:12px;line-height:1.6}
+.atlas-entry h3{font:19px Georgia,serif;margin:6px 0;color:var(--ink)}
+.atlas-entry p{color:#b6c6c0;margin:6px 0 10px;overflow-wrap:anywhere}.atlas-entry small{color:var(--muted);font-size:10px}
+.atlas-entry button{margin:4px 4px 0 0}.atlas-entry .source{border-left:2px solid #d9c79560;padding-left:10px;font-size:11px}
+.empty{font:14px/1.8 Georgia,serif;color:#adbfba;margin-top:10px}
+#atlas-footer{padding:12px 20px;border-top:1px solid var(--line);font-size:10px;color:var(--muted)}
+#atlas-footer button{font-size:11px;width:100%}
+#atlas-follow{position:absolute;left:18px;top:82px;z-index:60;background:#14252add;border:1px solid var(--line);border-radius:8px;padding:9px 12px;font-size:12px;max-width:calc(100% - 350px)}
+#atlas-follow:empty{display:none}
+#atlas-map-note{position:absolute;bottom:14px;left:18px;pointer-events:none;font:10px system-ui;letter-spacing:.05em;color:#cfddcc9c}
+.bottom{right:328px;left:18px;bottom:42px;justify-content:flex-start;z-index:65}
+.agentcard{pointer-events:auto;width:280px;max-height:340px;overflow:auto;background:#14252aef;border-color:#d9c79540}
+.agentcard .name{font:21px Georgia,serif}.agentcard .meta,.thought{line-height:1.6}
+#underGlassHud{left:calc((100% - 310px)/2)!important;bottom:64px!important;white-space:nowrap}
+#tg-village-tabs{left:calc((100% - 310px)/2)!important;bottom:16px!important}
+#tg-village-panel{bottom:112px!important;left:18px!important;font:12px/1.6 system-ui!important;max-height:240px!important;background:#14252af5!important}
+body.tg-close .bottom{bottom:112px;left:auto;right:328px}body.tg-close #atlas-map-note{display:none}
+.atlas-wide #atlas-reader{display:none}.atlas-wide #c{width:100%}.atlas-wide .bottom{right:18px}.atlas-wide #underGlassHud,.atlas-wide #tg-village-tabs{left:50%!important}.atlas-wide #atlas-follow{max-width:calc(100% - 36px)}
+@media(max-width:760px){
+ #wrap{height:850px}#atlas-bar{padding:8px;gap:5px;height:98px;flex-wrap:wrap;align-content:center}
+ #atlas-bar .identity{flex-basis:100%}#atlas-bar button,#atlas-bar select{padding:6px 9px;font-size:11px}
+ #c{top:98px;width:100%;height:400px}#atlas-reader{top:498px;width:100%;border-left:0;border-top:1px solid var(--line)}
+ #atlas-summary{padding:12px 16px}#atlas-summary h2{font-size:21px;margin:5px 0}#atlas-summary p,.census{display:none}
+ #atlas-content{padding:12px 16px}#atlas-tabs{padding-top:5px}#atlas-footer{padding:6px 12px}
+ #atlas-follow{top:110px;left:10px;max-width:calc(100% - 20px);font-size:11px}
+ .bottom{top:160px;bottom:auto;left:10px;right:10px}.agentcard{width:240px;max-height:245px}
+ #atlas-map-note{top:478px;bottom:auto;font-size:9px;left:10px}
+ #underGlassHud{top:420px!important;bottom:auto!important;left:50%!important}
+ #tg-village-tabs{top:456px!important;bottom:auto!important;left:50%!important;gap:1px!important}#tg-village-tabs button{font-size:9px!important;padding:6px!important}
+ #tg-village-panel{top:205px!important;bottom:auto!important;width:250px!important;max-height:205px!important}
+ body.tg-close .bottom{top:160px;bottom:auto;left:10px;right:10px}
+ .atlas-wide #c{height:752px}.atlas-wide #atlas-map-note{top:auto;bottom:12px}.atlas-wide #underGlassHud{top:auto!important;bottom:64px!important}.atlas-wide #tg-village-tabs{top:auto!important;bottom:16px!important}
+}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}

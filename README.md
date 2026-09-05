@@ -1,3 +1,19 @@
+# The living atlas update
+
+Tiny Gods now has one reading panel for the chronicle, people, villages, and beliefs. Follow a person, enter a settlement, pause, change pace, fit the map, or hide the panel without restarting the simulation. The sidebar applies starting conditions only when you explicitly begin a world.
+
+The procedural coastline and terrain are cached at higher detail; villages gain a layered landscape. The chronicle keeps the latest 500 events and exports a text record (not a save game). Beliefs display their source separately. Mythic figures now require lived achievements, rather than appearing solely from starting personality scores.
+
+Simulation updates use fixed 60 Hz steps, independent of display refresh rate. Hungry agents seek available food before socializing. Founding history preserves the actual founder, and the city-age transition is reachable.
+
+Run: `python -m streamlit run app.py`
+
+Checks: `node --test test_clock.cjs`
+
+`terrarium.py` owns the explicit layer order and assembles the self-contained browser app. `clock.js` and `landscape.js` provide isolated helpers; `atlas.js` and `atlas.css` own the new presentation. The historical simulation layers remain in place. Fixed steps improve consistency, but this is not a claim of complete replay determinism: some older visual layers also maintain derived state.
+
+---
+
 # 🌱 Tiny Gods
 
 **A living civilization terrarium in your browser.**

@@ -54,6 +54,6 @@ function tgFinalCloseLandmark(){if(typeof tgV7Mode==='undefined'||tgV7Mode!=='cl
 const tgFinalClose=tgV7Close;tgV7Close=function(){tgFinalClose();tgFinalCloseLandmark()};
 // Stronger mythic silhouettes: give pantheon entities shoulders, crown/antlers, and a trailing mantle.
 const tgFinalDeity=tgV9DrawDeity;tgV9DrawDeity=function(d,i){tgFinalDeity(d,i);let a=d.agent,p=tgV9WorldPoint(a),ar=d.arch;if(p.x<-90||p.x>W+90||p.y<-100||p.y>H+100)return;let bob=Math.sin(performance.now()*.002+a.id)*3;ctx.save();ctx.translate(p.x,p.y-23+bob);ctx.strokeStyle=`hsla(${ar.hue} 90% 82% / .68)`;ctx.fillStyle=`hsla(${ar.hue} 72% 42% / .20)`;ctx.lineWidth=1.5;ctx.beginPath();ctx.moveTo(-7,4);ctx.quadraticCurveTo(-15,15,-10,27);ctx.lineTo(0,20);ctx.lineTo(10,27);ctx.quadraticCurveTo(15,15,7,4);ctx.closePath();ctx.fill();ctx.stroke();ctx.beginPath();ctx.moveTo(-4,-10);ctx.lineTo(-10,-18);ctx.moveTo(4,-10);ctx.lineTo(10,-18);ctx.stroke();ctx.restore()};
-const tgFinalDraw=draw;draw=function(){tgFinalDraw();tgFinalRegions();for(const s of world.settlements)if(!s.abandoned&&s.pop>0)tgFinalLandmark(s);tgFinalHistoryHUD()};
+const tgFinalDraw=draw;draw=function(){tgFinalDraw();tgFinalRegions();for(const s of world.settlements)if(!s.abandoned&&s.pop>0)tgFinalLandmark(s);/* Reading panel owns the history summary. */};
 log('◆ The long count begins: settlements specialize, landmark buildings rise, kin-regions become visible, and the world reads its own deep history.');
 })();
